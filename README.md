@@ -45,7 +45,7 @@ uncurled = scrapetools.uncurl(curl_str)
 * we can modify either of these values and search for another ingredient or a different page:
 
 ```
-uncurled['page'] = 3
+uncurled['params']['page'] = 3
 ```
 * after making the necessary adjustment, we can make the modified request:
 
