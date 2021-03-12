@@ -70,7 +70,6 @@ def parse_url(url):
         
     return {'base_url':base, 'params':params_dict}
 
-import pdb
 
 def parse_data(curl_str):
     """
