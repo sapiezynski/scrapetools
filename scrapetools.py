@@ -1,5 +1,7 @@
 import requests
 import re
+import json
+
 
 
 def extract_header(header_str):
@@ -68,6 +70,28 @@ def parse_url(url):
         
     return {'base_url':base, 'params':params_dict}
 
+import pdb
+
+def parse_data(curl_str):
+    """
+    given the whole Copy as cURL string, extracts the data passed in a POST
+    (or nothing if it was a GET request)
+
+    Args:
+        curl_str (str): Copy as cURL string from the dev tools
+
+    Returns:
+        data_dict (dict): a dictionary representation of the data passed in the POST request
+    
+    """
+    pattern = '--data-raw \'[^\']*\''
+    data = re.findall(pattern, curl_str)
+    if len(data) == 0:
+        return ''
+    data_dict = json.loads(data[0].replace('--data-raw \'', '')[:-1])
+    return data_dict
+
+
 def uncurl(curl_str):
     """
     given the whole Copy as cURL string, extracts the url and get params as well as headers
@@ -83,6 +107,9 @@ def uncurl(curl_str):
     uncurled = {}
     uncurled.update(parse_url(url))
     uncurled['headers'] = extract_headers(curl_str)
+    if '--data-raw' in curl_str:
+        uncurled['data'] = parse_data(curl_str)
+
     return uncurled
 
 def request(uncurled):
@@ -95,7 +122,14 @@ def request(uncurled):
     Returns:
         response (requests.Response): the result of the request
     """
-    params = '&'.join([f'{key}={value}' for key, value in uncurled['params'].items()])
-    url = f'{uncurled["base_url"]}?{params}'
-    return requests.get(url, headers=uncurled['headers'])
+    # params = '&'.join([f'{key}={value}' for key, value in uncurled['params'].items()])
+    # url = f'{uncurled["base_url"]}?{params}'
+    if 'data' in uncurled:
+        method = requests.post
+    else:
+        method = requests.get
+
+    return method(uncurled['base_url'], 
+        params = uncurled['params'], 
+        headers=uncurled['headers'])
 
