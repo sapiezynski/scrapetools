@@ -8,7 +8,9 @@
 	* for example I copied a call from AllRecipes
 	
 	```
-	curl_str = "curl 'https://www.allrecipes.com/element-api/content-proxy/faceted-searches-load-more?search=spinach&page=2' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:86.0) Gecko/20100101 Firefox/86.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=1' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: https://www.allrecipes.com/search/results/?search=spinach' -H 'Cookie: removed for privacy reasons' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'TE: Trailers'"
+	curl_str = """
+  curl 'https://www.allrecipes.com/element-api/content-proxy/faceted-searches-load-more?search=spinach&page=2' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:86.0) Gecko/20100101 Firefox/86.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=1' --compressed -H 'X-Requested-With: XMLHttpRequest' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: https://www.allrecipes.com/search/results/?search=spinach' -H 'Cookie: removed for privacy reasons' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'TE: Trailers'
+  """
 	```
 * transform this string into something more usable:
 

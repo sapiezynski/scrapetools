@@ -124,11 +124,12 @@ def request(uncurled):
     # params = '&'.join([f'{key}={value}' for key, value in uncurled['params'].items()])
     # url = f'{uncurled["base_url"]}?{params}'
     if 'data' in uncurled:
-        method = requests.post
+        return requests.post(uncurled['base_url'], 
+            params = uncurled['params'], 
+            headers = uncurled['headers'],
+            data = uncurled['data'])
     else:
-        method = requests.get
-
-    return method(uncurled['base_url'], 
-        params = uncurled['params'], 
-        headers=uncurled['headers'])
+        requests.get(uncurled['base_url'], 
+            params = uncurled['params'], 
+            headers = uncurled['headers'])
 
