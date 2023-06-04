@@ -129,7 +129,7 @@ def request(uncurled):
             headers = uncurled['headers'],
             data = uncurled['data'])
     else:
-        requests.get(uncurled['base_url'], 
+        return requests.get(uncurled['base_url'], 
             params = uncurled['params'], 
             headers = uncurled['headers'])
 
